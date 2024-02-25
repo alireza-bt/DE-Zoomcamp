@@ -3,6 +3,8 @@ import oracledb
 import os
 import logging
 import getpass
+from sqlalchemy import create_engine
+import cx_Oracle
 
 PORT = 8000
 
@@ -29,6 +31,7 @@ def get_order(order_id: int):
             with connection.cursor() as cursor:
                 cursor.execute("SELECT order_id, product_name, quantity FROM orders", (order_id,))
                 result = cursor.fetchone()
+                logging.info('done!')
                 if result:
                     order = {
                         "order_id": result[0],
